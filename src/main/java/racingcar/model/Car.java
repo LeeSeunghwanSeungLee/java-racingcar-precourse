@@ -1,6 +1,7 @@
 package racingcar.model;
 
 public class Car {
+    public static final int MOVEBOUNDARY = 4;
     private int distance = 0;
     private String name;
 
@@ -8,8 +9,9 @@ public class Car {
         this.name = name;
     }
 
-    public void go() {
-        distance++;
+    public void moveOrNot(int number) {
+        if (number >= Car.MOVEBOUNDARY)
+            distance++;
     }
 
     public int getDistance() {

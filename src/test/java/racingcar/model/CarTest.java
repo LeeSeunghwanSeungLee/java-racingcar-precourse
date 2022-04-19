@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import racingcar.utils.RandomNumberMaker;
 
 import static org.assertj.core.api.Assertions.*;
 class CarTest {
@@ -16,15 +17,27 @@ class CarTest {
         Car car = new Car(name_1);
         Car car2 = new Car(name_2);
 
-        for (int i = 0; i < 10; i++)
-            car.go();
+        assertThat(car.getDistance()).isEqualTo(0);
+        assertThat(car2.getDistance()).isEqualTo(0);
 
-        for (int i = 0; i < 3; i++)
-            car2.go();
+        // move
+        for (int i = 0; i < 10; i++) {
+            int randomNum = RandomNumberMaker.makeNumber();
+            car.moveOrNot(randomNum);
+        }
 
-        assertThat(car.getDistance()).isEqualTo(10);
+
+        for (int i = 0; i < 3; i++) {
+            int randomNum = RandomNumberMaker.makeNumber();
+            car2.moveOrNot(randomNum);
+        }
+
+        assertThat(car.getDistance()).isGreaterThanOrEqualTo(0);
+        assertThat(car.getDistance()).isLessThanOrEqualTo(10);
         assertThat(car.getName()).isEqualTo("name_1");
-        assertThat(car2.getDistance()).isEqualTo(3);
+
+        assertThat(car2.getDistance()).isGreaterThanOrEqualTo(0);
+        assertThat(car2.getDistance()).isLessThanOrEqualTo(10);
         assertThat(car2.getName()).isEqualTo("name_2");
     }
 
@@ -35,5 +48,19 @@ class CarTest {
         Car car = new Car(name);
 
         assertThat(car.getName()).isEqualTo(name);
+    }
+
+    @Test
+    @DisplayName("입력값이 4이상이면 전진하는 기능 검증")
+    void name() {
+        Car car = new Car("");
+        assertThat(car.getDistance()).isEqualTo(0);
+        car.moveOrNot(4);
+        assertThat(car.getDistance()).isEqualTo(1);
+
+        car = new Car("");
+        assertThat(car.getDistance()).isEqualTo(0);
+        car.moveOrNot(9);
+        assertThat(car.getDistance()).isEqualTo(1);
     }
 }
