@@ -1,5 +1,7 @@
 package racingcar.model;
 
+import racingcar.utils.RandomNumberMaker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,5 +26,21 @@ public class CarRepository {
 
     public void clear() {
         cars.clear();
+    }
+
+    /**
+     * 매 턴마다 리포지토리에 저장되어있는 자동차들을 움직일지 말지 랜덤값을 통해 결정
+     */
+    public void startRound() {
+        for (Car car : cars)
+            car.moveOrNot(RandomNumberMaker.makeNumber());
+    }
+
+    public int getMaxDistance() {
+        int result = 0;
+        for (Car car : cars)
+            result = Integer.max(result, car.getDistance());
+
+        return result;
     }
 }

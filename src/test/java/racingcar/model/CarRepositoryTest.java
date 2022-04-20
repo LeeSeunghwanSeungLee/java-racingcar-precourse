@@ -1,13 +1,18 @@
 package racingcar.model;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import static org.assertj.core.api.Assertions.*;
-class CarRepositoryTest {
-    private CarRepository carCandidates = new CarRepository();
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mockStatic;
 
+class CarRepositoryTest {
+    private static final int TEST_MOVING_FORWARD = 4;
+    private CarRepository carCandidates = new CarRepository();
     @BeforeEach
     void getReadyCarCandidates() {
         carCandidates.clear();
@@ -31,5 +36,24 @@ class CarRepositoryTest {
             carCandidates.addCar(new Car("test_" + i));
 
         assertThat(carCandidates.getSize()).isEqualTo(carNum);
+    }
+
+    @Test
+    @DisplayName("자동차 매 턴마다 전진하는 기능 테스트 수행")
+    void 자동차움직이기테스트() {
+        // given
+        int carNum = 4;
+        for (int i = 0; i < carNum; i++)
+            carCandidates.addCar(new Car("test_" + i));
+
+        // when
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(TEST_MOVING_FORWARD);
+        }
+        carCandidates.startRound();
+
+        // then
+        assertThat(carCandidates.getMaxDistance()).isEqualTo(1);
     }
 }
