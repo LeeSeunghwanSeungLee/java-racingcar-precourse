@@ -3,6 +3,7 @@ package racingcar.model;
 import camp.nextstep.edu.missionutils.Randoms;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.mockStatic;
 
 class CarRepositoryTest {
     private static final int TEST_MOVING_FORWARD = 4;
+    private static final int TEST_MOVING_STOP = 2;
     private CarRepository carCandidates = new CarRepository();
     @BeforeEach
     void getReadyCarCandidates() {
@@ -38,7 +40,7 @@ class CarRepositoryTest {
         assertThat(carCandidates.getSize()).isEqualTo(carNum);
     }
 
-    @Test
+    @RepeatedTest(100)
     @DisplayName("자동차 매 턴마다 전진하는 기능 테스트 수행")
     void 자동차움직이기테스트() {
         // given
@@ -46,14 +48,25 @@ class CarRepositoryTest {
         for (int i = 0; i < carNum; i++)
             carCandidates.addCar(new Car("test_" + i));
 
-        // when
+        // when && then
         try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
             mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
                     .thenReturn(TEST_MOVING_FORWARD);
-        }
-        carCandidates.startRound();
 
-        // then
-        assertThat(carCandidates.getMaxDistance()).isEqualTo(1);
+            carCandidates.startRound();
+            carCandidates.startRound();
+            assertThat(carCandidates.getMaxDistance()).isEqualTo(2);
+        }
+
+        // when && then
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(TEST_MOVING_STOP);
+
+            carCandidates.startRound();
+            carCandidates.startRound();
+            assertThat(carCandidates.getMaxDistance()).isEqualTo(2);
+        }
+
     }
 }

@@ -5,6 +5,9 @@ import racingcar.utils.RandomNumberMaker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 일급 컬렉션이면서, 리포지토리(모델 객체저장) 의 기능 수행
+ */
 public class CarRepository {
     private List<Car> cars;
 
