@@ -8,6 +8,10 @@ import racingcar.utils.RandomNumberMaker;
 
 import static org.assertj.core.api.Assertions.*;
 class CarTest {
+
+    private static final int MOVE_NUMBER = 5;
+    private static final int STOP_NUMBER = 2;
+
     @Test
     @DisplayName("Car 객체 생성 및 전진 테스트")
     void Car객체테스트() {
@@ -68,5 +72,19 @@ class CarTest {
         car.moveOrNot(7);
 
         assertThat(car.getDistance()).isEqualTo(3);
+    }
+
+    @DisplayName("입력값이 3이하면 멈추는 기능 검증")
+    @Test
+    void carStop() {
+        Car car = new Car("");
+        assertThat(car.getDistance()).isEqualTo(0);
+        car.moveOrNot(STOP_NUMBER);
+        assertThat(car.getDistance()).isEqualTo(0);
+
+        car = new Car("");
+        assertThat(car.getDistance()).isEqualTo(0);
+        car.moveOrNot(STOP_NUMBER);
+        assertThat(car.getDistance()).isEqualTo(0);
     }
 }
