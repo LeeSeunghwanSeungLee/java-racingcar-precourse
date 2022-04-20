@@ -3,14 +3,14 @@ package racingcar.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarCandidates {
+public class CarRepository {
     private List<Car> cars;
 
-    public CarCandidates() {
+    public CarRepository() {
         this.cars = new ArrayList<>();
     }
 
-    public CarCandidates(List<Car> carCandidate) {
+    public CarRepository(List<Car> carCandidate) {
         cars = carCandidate;
     }
 
