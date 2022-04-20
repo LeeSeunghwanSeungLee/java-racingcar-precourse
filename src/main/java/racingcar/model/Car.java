@@ -1,7 +1,7 @@
 package racingcar.model;
 
 public class Car {
-    public static final int MOVEBOUNDARY = 4;
+    public static final int MOVE_BOUNDARY = 4;
     private int distance = 0;
     private String name;
 
@@ -10,7 +10,7 @@ public class Car {
     }
 
     public void moveOrNot(int number) {
-        if (number >= Car.MOVEBOUNDARY)
+        if (number >= Car.MOVE_BOUNDARY)
             distance++;
     }
 
