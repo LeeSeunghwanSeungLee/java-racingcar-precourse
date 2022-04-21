@@ -1,5 +1,6 @@
 package racingcar.model;
 
+
 public class Car {
     public static final int MOVE_BOUNDARY = 4;
     private int distance = 0;
@@ -16,6 +17,13 @@ public class Car {
 
     public int getDistance() {
         return distance;
+    }
+
+    public String getDistanceByString() {
+        StringBuffer distanceResult = new StringBuffer();
+        for (int i = 0; i < distance; i++)
+            distanceResult.append("-");
+        return distanceResult.toString();
     }
 
     public String getName() {

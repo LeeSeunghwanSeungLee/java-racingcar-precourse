@@ -87,4 +87,19 @@ class CarTest {
         car.moveOrNot(STOP_NUMBER);
         assertThat(car.getDistance()).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("차 위치를 String으로 리턴")
+    void 거리를문자열로표시() {
+        Car car = new Car("test_1");
+        car.moveOrNot(MOVE_NUMBER);
+        car.moveOrNot(MOVE_NUMBER);
+        car.moveOrNot(MOVE_NUMBER);
+        assertThat(car.getDistanceByString()).isEqualTo("---");
+
+        car = new Car("test_2");
+        car.moveOrNot(MOVE_NUMBER);
+        car.moveOrNot(MOVE_NUMBER);
+        assertThat(car.getDistanceByString()).isEqualTo("--");
+    }
 }
