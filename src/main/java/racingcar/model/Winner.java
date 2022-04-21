@@ -1,6 +1,7 @@
 package racingcar.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,5 +29,19 @@ public class Winner {
 
     public int getSize() {
         return roundWinner.size();
+    }
+
+    @Override
+    public String toString() {
+        return String.join(",", getWinnerNames());
+    }
+
+    private List<String> getWinnerNames() {
+        List<String> res = new ArrayList<>();
+
+        for (Car car : roundWinner)
+            res.add(car.getName());
+
+        return res;
     }
 }
