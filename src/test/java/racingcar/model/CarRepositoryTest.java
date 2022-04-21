@@ -7,6 +7,8 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.Iterator;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mockStatic;
@@ -69,4 +71,25 @@ class CarRepositoryTest {
         }
 
     }
+
+    @Test
+    @DisplayName("이터레이터 반환 메소드 테스트")
+    void 이터레이터반환() {
+        // given
+        int carNum = 10;
+        for (int i = 0; i < carNum; i++)
+            carCandidates.addCar(new Car("test_" + i));
+
+        // when
+        Iterator<Car> carIt = carCandidates.asIterator();
+        int res = 0;
+        while(carIt.hasNext()) {
+            res++;
+            carIt.next();
+        }
+
+        // then
+        assertThat(res).isEqualTo(carNum);
+    }
+
 }

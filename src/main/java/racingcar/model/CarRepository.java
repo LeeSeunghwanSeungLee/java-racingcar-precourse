@@ -3,6 +3,7 @@ package racingcar.model;
 import racingcar.utils.RandomNumberMaker;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,5 +46,9 @@ public class CarRepository {
             result = Integer.max(result, car.getDistance());
 
         return result;
+    }
+
+    public Iterator<Car> asIterator() {
+        return cars.iterator();
     }
 }
