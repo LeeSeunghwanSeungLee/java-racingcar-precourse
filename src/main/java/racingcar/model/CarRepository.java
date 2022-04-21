@@ -48,6 +48,9 @@ public class CarRepository {
         return result;
     }
 
+    /**
+     * 외부에서 리스트의 추가 제거를 막기 위해 이터레이터로 반환
+     */
     public Iterator<Car> asIterator() {
         return cars.iterator();
     }
