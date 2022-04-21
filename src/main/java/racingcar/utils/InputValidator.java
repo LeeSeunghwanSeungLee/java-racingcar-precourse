@@ -1,18 +1,21 @@
 package racingcar.utils;
 
+import org.junit.jupiter.params.ParameterizedTest;
 import racingcar.config.ErrorMessage;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class InputHandler {
-    private static InputHandler inputHandler;
+public class InputValidator {
+    private static InputValidator inputHandler;
+    private static int MAX_LENGTH = 5;
+    private static int EMPTY_LENGTH = 0;
 
-    private InputHandler() {} // 싱글톤 구현
+    private InputValidator() {} // 싱글톤 구현
 
-    public synchronized static InputHandler getInstance() {
+    public synchronized static InputValidator getInstance() {
         if (inputHandler == null)
-            inputHandler = new InputHandler();
+            inputHandler = new InputValidator();
         return inputHandler;
     }
 
@@ -40,15 +43,20 @@ public class InputHandler {
     }
 
     public void validateEmptyName(String name) {
-
+        if (name.length() <= EMPTY_LENGTH)
+            throw new IllegalArgumentException(ErrorMessage.EmptyName.toString());
     }
 
     public void validateNameLimit(String name) {
-
+        if (name.length() > MAX_LENGTH)
+            throw new IllegalArgumentException(ErrorMessage.ExceedCount.toString());
     }
 
-    public void validateNotNumber(String number) {
-
+    public void validateNumber(String number) {
+        try {
+            Integer.parseInt(number);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(ErrorMessage.NotNumber.toString());
+        }
     }
-
 }
