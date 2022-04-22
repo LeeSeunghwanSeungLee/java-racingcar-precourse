@@ -32,14 +32,17 @@ public class InputValidator {
 
     public void validateSameName(String input) {
         String[] users = input.split(",");
-        List<String> userList = Arrays.asList(users);
         for (int i = 0; i < users.length; i++)
-            doubleCheck(users[i], userList);
+            doubleCheck(i, users);
     }
 
-    private void doubleCheck(String user, List<String> userList) {
-        if (userList.contains(user))
-            throw new IllegalArgumentException(ErrorMessage.SameName.toString());
+    private void doubleCheck(int index, String[] users) {
+        for (int i = 0; i < users.length; i++) {
+            if (index == i) continue;
+
+            if (users[index].equals(users[i]))
+                throw new IllegalArgumentException(ErrorMessage.SameName.toString());
+        }
     }
 
     public void validateEmptyName(String name) {
