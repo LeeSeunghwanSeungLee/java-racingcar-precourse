@@ -103,4 +103,15 @@ class InputValidatorTest {
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.NotNumber.toString());
     }
+
+    @Test
+    @DisplayName("숫자 값이 범위 초과로 크게 들어온 경우 테스트")
+    void 숫자범위밖에러() {
+        String number = "3000000000";
+
+        assertThatThrownBy(() -> {
+            inputValidator.validateNumberRange(number);
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(ErrorMessage.ExceedNumber.toString().toString());
+    }
 }

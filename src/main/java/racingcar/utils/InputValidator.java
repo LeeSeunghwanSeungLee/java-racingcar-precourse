@@ -59,4 +59,19 @@ public class InputValidator {
             throw new IllegalArgumentException(ErrorMessage.NotNumber.toString());
         }
     }
+
+    public void validateNumberRange(String number) {
+        try {
+            int num = Integer.parseInt(number);
+            validateNotPlus(num);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(ErrorMessage.ExceedNumber.toString());
+        }
+    }
+
+    private void validateNotPlus(int number) {
+        if (number <= 0) {
+            throw new IllegalArgumentException(ErrorMessage.ExceedNumber.toString());
+        }
+    }
 }
