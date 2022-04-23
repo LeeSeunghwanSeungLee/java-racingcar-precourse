@@ -28,22 +28,25 @@ public class PlayController {
         getNameInput();
 
         View.printInputCount();
-        int round = countInput();
-
-        for (int i = 0; i < round; i++) {
-            carRepository.startRound();
-
-            Iterator<Car> carIt = carRepository.asIterator();
-            while (carIt.hasNext()) {
-                Car nowCar = carIt.next();
-                View.printSubtitleln(nowCar.getName() + " : " + nowCar.getDistanceByString());
-            }
-            View.printSubtitleln("");
-        }
-
+        progressRound(countInput());
 
         Winner winner = new Winner(carRepository);
         View.printWinners(winner.toString());
+    }
+
+    private void progressRound(int round) {
+        for (int i = 0; i < round; i++) {
+            carRepository.startRound();
+            showProgressInScreen(carRepository.asIterator());
+        }
+    }
+
+    private void showProgressInScreen(Iterator<Car> carIt) {
+        while (carIt.hasNext()) {
+            Car nowCar = carIt.next();
+            View.printSubtitleln(nowCar.getName() + " : " + nowCar.getDistanceByString());
+        }
+        View.printSubtitleln("");
     }
 
     private void getNameInput() {
@@ -51,13 +54,16 @@ public class PlayController {
             String carNames = Console.readLine();
             ArgumentResolver<String[]> argumentResolver = stringArrayArgumentResolver;
             String[] cars = argumentResolver.convert(carNames);
-            for (String car : cars) {
-                carRepository.addCar(new Car(car));
-            }
-
+            insertCarInRepository(cars);
         } catch (IllegalArgumentException e) {
             View.printSubtitleln(e.getMessage());
             getNameInput();
+        }
+    }
+
+    private void insertCarInRepository(String[] cars) {
+        for (String car : cars) {
+            carRepository.addCar(new Car(car));
         }
     }
 
