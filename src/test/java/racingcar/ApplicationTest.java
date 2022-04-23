@@ -3,8 +3,7 @@ package racingcar;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
 
-import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
-import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
+import static camp.nextstep.edu.missionutils.test.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ApplicationTest extends NsTest {
@@ -31,6 +30,27 @@ class ApplicationTest extends NsTest {
                 runException("pobi,javaji");
                 assertThat(output()).contains(ERROR_MESSAGE);
             }
+        );
+    }
+
+    @Test
+    void 두명_중복_우승자() {
+        assertRandomNumberInRangeTest(() -> {
+            run("aaaa,bbbb,shwan", "2");
+            assertThat(output()).contains("aaaa : --", "bbbb : -","shwan : -","최종 우승자: aaaa,shwan");
+        }, MOVING_FORWARD, STOP, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD);
+    }
+
+    @Test
+    void 세명_중복_우승자() {
+        assertRandomNumberInRangeTest(() -> {
+                run("aaaa,bbbb,shwan,soso", "4");
+                assertThat(output()).contains("aaaa : ---", "bbbb : ---","shwan : ---", "soso : --","최종 우승자: aaaa,bbbb,shwan");
+            },
+            MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
+            MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
+            STOP, STOP, MOVING_FORWARD, MOVING_FORWARD,
+            MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD
         );
     }
 
