@@ -4,7 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import racingcar.model.Car;
 import racingcar.model.CarRepository;
 import racingcar.model.Winner;
-import racingcar.utils.InputValidator;
+import racingcar.utils.ArgumentResolver;
 import racingcar.utils.TypeTransformer;
 import racingcar.view.View;
 
@@ -12,10 +12,10 @@ import java.util.Iterator;
 
 public class PlayController {
     private CarRepository carRepository;
-    private InputValidator inputValidator;
+    private ArgumentResolver argumentResolver;
 
     public PlayController() {
-        inputValidator = InputValidator.getInstance();
+        argumentResolver = ArgumentResolver.getInstance();
         carRepository = new CarRepository();
     }
 
@@ -46,16 +46,7 @@ public class PlayController {
         try {
             String carNames = Console.readLine();
 
-            // validate
-            inputValidator.validateEmpty(carNames);
-            inputValidator.validateLeastCandidate(carNames);
-            inputValidator.validateSameName(carNames);
-            String[] cars = TypeTransformer.changeString2Array(carNames);
-            for (String car : cars) {
-                inputValidator.validateEmptyName(car);
-                inputValidator.validateNameLimit(car);
-            }
-
+            String[] cars = argumentResolver.converterStringInput(carNames);
             for (String car : cars) {
                 carRepository.addCar(new Car(car));
             }
@@ -69,9 +60,7 @@ public class PlayController {
     private int countInput() {
         try{
             String count = Console.readLine();
-            inputValidator.validateNumber(count);
-            inputValidator.validateNumberRange(count);
-            return Integer.parseInt(count);
+            return argumentResolver.convertNumberInput(count);
         } catch (IllegalArgumentException e){
             View.printSubtitleln(e.getMessage());
             return countInput();
