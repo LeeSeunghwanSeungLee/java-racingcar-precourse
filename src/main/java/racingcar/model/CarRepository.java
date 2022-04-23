@@ -10,10 +10,17 @@ import java.util.List;
  * 일급 컬렉션이면서, 리포지토리(모델 객체저장) 의 기능 수행
  */
 public class CarRepository {
+    public static CarRepository carRepository;
     private List<Car> cars;
 
-    public CarRepository() {
+    private CarRepository() {
         this.cars = new ArrayList<>();
+    }
+
+    public static CarRepository getInstance() {
+        if (carRepository == null)
+            carRepository = new CarRepository();
+        return carRepository;
     }
 
     public CarRepository(List<Car> carCandidate) {

@@ -20,7 +20,7 @@ public class PlayController {
     public PlayController() {
         stringArrayArgumentResolver = StringArrayArgumentResolver.getInstance();
         integerArgumentResolver = IntegerArgumentResolver.getInstance();
-        carRepository = new CarRepository();
+        carRepository = CarRepository.getInstance();
     }
 
     public void start() {
@@ -32,6 +32,7 @@ public class PlayController {
 
         Winner winner = new Winner(carRepository);
         View.printWinners(winner.toString());
+        carRepository.clear();
     }
 
     private void progressRound(int round) {

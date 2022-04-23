@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mockStatic;
 class WinnerTest {
     private static final int MOVE_NUMBER = 5;
     private static final int STOP_NUMBER = 1;
-    private CarRepository carCandidates = new CarRepository();
+    private CarRepository carCandidates = CarRepository.getInstance();
 
     @BeforeEach
     void getReadyCarCandidates() {
