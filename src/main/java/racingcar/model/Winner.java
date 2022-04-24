@@ -21,8 +21,8 @@ public class Winner {
         }
     }
 
-    private void checkAddOrNot(Integer maxDistnace, Car car) {
-        if (maxDistnace.equals(car.getDistance()))
+    private void checkAddOrNot(Integer maxDistance, Car car) {
+        if (maxDistance.equals(car.getDistance()))
             roundWinner.add(car);
     }
 
