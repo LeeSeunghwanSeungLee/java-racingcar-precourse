@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Winner {
-    private static String SPLIT = ",";
+    private static String SPLIT = ", ";
     private List<Car> roundWinner;
 
     public Winner(CarRepository carRepository) {

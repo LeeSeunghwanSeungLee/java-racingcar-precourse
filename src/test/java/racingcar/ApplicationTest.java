@@ -96,7 +96,7 @@ class ApplicationTest extends NsTest {
     void 두명_중복_우승자() {
         assertRandomNumberInRangeTest(() -> {
             run("aaaa,bbbb,shwan", "2");
-            assertThat(output()).contains("aaaa : --", "bbbb : -","shwan : -","최종 우승자: aaaa,shwan");
+            assertThat(output()).contains("aaaa : --", "bbbb : -","shwan : -","최종 우승자: aaaa, shwan");
         }, MOVING_FORWARD, STOP, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD);
     }
 
@@ -104,7 +104,7 @@ class ApplicationTest extends NsTest {
     void 세명_중복_우승자() {
         assertRandomNumberInRangeTest(() -> {
                 run("aaaa,bbbb,shwan,soso", "4");
-                assertThat(output()).contains("aaaa : ---", "bbbb : ---","shwan : ---", "soso : --","최종 우승자: aaaa,bbbb,shwan");
+                assertThat(output()).contains("aaaa : ---", "bbbb : ---","shwan : ---", "soso : --","최종 우승자: aaaa, bbbb, shwan");
             },
             MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
             MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
