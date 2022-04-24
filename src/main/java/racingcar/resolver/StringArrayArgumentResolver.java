@@ -17,7 +17,7 @@ public class StringArrayArgumentResolver implements ArgumentResolver<String[]>{
 
     @Override
     public String[] convert(String input) {
-        return validate(input);
+        return validate(input.replace(" ", ""));
     }
 
     private String[] validate(String input) {
