@@ -29,10 +29,14 @@ public class StringArrayArgumentResolver implements ArgumentResolver<String[]>{
         inputValidator.validateLeastCandidate(input);
         inputValidator.validateSameName(input);
         String[] res = TypeTransformer.changeString2Array(input);
-        for (String value : res) {
+        validateName(res);
+        return res;
+    }
+
+    private void validateName(String[] name) {
+        for (String value : name) {
             inputValidator.validateEmptyName(value);
             inputValidator.validateNameLimit(value);
         }
-        return res;
     }
 }

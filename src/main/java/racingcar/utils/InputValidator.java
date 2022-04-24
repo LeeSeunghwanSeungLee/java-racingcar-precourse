@@ -47,10 +47,13 @@ public class InputValidator {
     private void doubleCheck(int index, String[] users) {
         for (int i = 0; i < users.length; i++) {
             if (index == i) continue;
-
-            if (users[index].equals(users[i]))
-                throw new IllegalArgumentException(ErrorMessage.SameName.toString());
+            compare(users[index], users[i]);
         }
+    }
+
+    private void compare(String name_1, String name_2) {
+        if (name_1.equals(name_2))
+            throw new IllegalArgumentException(ErrorMessage.SameName.toString());
     }
 
     public void validateEmptyName(String name) {
