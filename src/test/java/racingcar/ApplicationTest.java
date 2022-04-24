@@ -1,7 +1,10 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import racingcar.model.CarRepository;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,6 +14,12 @@ class ApplicationTest extends NsTest {
     private static final int STOP = 3;
 
     private static final String ERROR_MESSAGE = "[ERROR]";
+
+    @BeforeEach
+    void clearRepository() {
+        CarRepository carRepository = CarRepository.getInstance();
+        carRepository.clear();
+    }
 
     @Test
     void 전진_정지() {
@@ -34,6 +43,56 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 참가자_인원수에_대한_예외_처리() {
+        assertSimpleTest(
+                () -> {
+                    runException("pobi");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    void 중복된_이름에_대한_예외_처리() {
+        assertSimpleTest(
+                () -> {
+                    runException("pobi,pobi");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    void 공백_이름에_대한_예외_처리() {
+        assertSimpleTest(
+                () -> {
+                    runException(" ");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    void 양수가_아닌_값_대한_예외_처리() {
+        assertSimpleTest(
+                () -> {
+                    runException("aaa,bbb", "0");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    void 너무_큰_값_대한_예외_처리() {
+        assertSimpleTest(
+                () -> {
+                    runException("aaa,bbb", "2200000000");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
     void 두명_중복_우승자() {
         assertRandomNumberInRangeTest(() -> {
             run("aaaa,bbbb,shwan", "2");
@@ -51,6 +110,23 @@ class ApplicationTest extends NsTest {
             MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
             STOP, STOP, MOVING_FORWARD, MOVING_FORWARD,
             MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD
+        );
+    }
+
+    @Test
+    void 단독_우승자() {
+        assertRandomNumberInRangeTest(() -> {
+                    run("aaaa,bbbb,shwan,soso", "8");
+                    assertThat(output()).contains("aaaa : -----", "bbbb : ------","shwan : ----", "soso : ----","최종 우승자: bbbb");
+                },
+                MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
+                MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
+                STOP, STOP, MOVING_FORWARD, MOVING_FORWARD,
+                MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD,
+                STOP, STOP, STOP, MOVING_FORWARD,
+                MOVING_FORWARD, MOVING_FORWARD, STOP, STOP,
+                MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD,
+                STOP, MOVING_FORWARD, STOP, STOP
         );
     }
 
