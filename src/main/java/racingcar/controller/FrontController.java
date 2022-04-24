@@ -26,38 +26,39 @@ public class FrontController {
 
     public void start() {
         View.printInputCarNames();
-        String[] carNames = getNameInput();
+        setNameInput();
 
         View.printInputCount();
-        Integer roundCount = getRound();
-
-        playController.insertCarInRepository(carNames, carRepository);
-
-        for (int i = 0; i < roundCount; i++) {
-            Iterator<Car> carIt = playController.progressRound(carRepository);
-            showProgressInScreen(carIt);
-        }
+        setRound();
 
         showWinner();
     }
 
-    private String[] getNameInput() {
+    private void setNameInput() {
         try {
             String input = Console.readLine();
-            return stringArrayArgumentResolver.convert(input);
-        } catch (Exception e) {
+            String[] carNames = stringArrayArgumentResolver.convert(input);
+            playController.insertCarInRepository(carNames, carRepository);
+        } catch (IllegalArgumentException e) {
             View.printSubtitleln(e.getMessage());
-            return getNameInput();
+            setNameInput();
         }
     }
 
-    private Integer getRound() {
+    private void setRound() {
         try{
             String count = Console.readLine();
-            return integerArgumentResolver.convert(count);
+            iterateRound(integerArgumentResolver.convert(count));
         } catch (IllegalArgumentException e){
             View.printSubtitleln(e.getMessage());
-            return getRound();
+            setRound();
+        }
+    }
+
+    private void iterateRound(int roundCount) {
+        for (int i = 0; i < roundCount; i++) {
+            Iterator<Car> carIt = playController.progressRound(carRepository);
+            showProgressInScreen(carIt);
         }
     }
 

@@ -18,19 +18,16 @@ public class PlayController {
         return playController;
     }
 
-
     public Iterator<Car> progressRound(CarRepository autowiredCarRepository) {
         autowiredCarRepository.startRound();
         return autowiredCarRepository.asIterator();
     }
-
 
     public void insertCarInRepository(String[] cars, CarRepository carRepository) {
         for (String car : cars) {
             carRepository.addCar(new Car(car));
         }
     }
-
 
     public Winner findWinner(CarRepository carRepository) {
         return new Winner(carRepository);
