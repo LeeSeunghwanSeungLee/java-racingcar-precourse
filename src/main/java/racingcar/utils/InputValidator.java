@@ -10,6 +10,8 @@ public class InputValidator {
     private static InputValidator inputHandler;
     private static int MAX_LENGTH = 5;
     private static int EMPTY_LENGTH = 0;
+    private static int LEAST_CANDIDATE_NUMBER = 2;
+    private static int ZERO = 0;
 
     private InputValidator() {} // 싱글톤 구현
 
@@ -20,13 +22,13 @@ public class InputValidator {
     }
 
     public void validateEmpty(String input) {
-        if (input.length() <= 0)
+        if (input.length() <= EMPTY_LENGTH)
             throw new IllegalArgumentException(ErrorMessage.EmptyValue.toString());
     }
 
 
     public void validateLeastCandidate(String input) {
-        if (input.split(",").length <= 1)
+        if (input.split(",").length < LEAST_CANDIDATE_NUMBER)
             throw new IllegalArgumentException(ErrorMessage.LeastCandidate.toString());
     }
 
@@ -73,7 +75,7 @@ public class InputValidator {
     }
 
     private void validateNotPlus(int number) {
-        if (number <= 0) {
+        if (number <= ZERO) {
             throw new IllegalArgumentException(ErrorMessage.ExceedNumber.toString());
         }
     }
