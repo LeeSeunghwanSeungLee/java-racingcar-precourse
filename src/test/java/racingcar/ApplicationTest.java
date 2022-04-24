@@ -114,15 +114,12 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 참가자_이름_공백_무시_진행() {
-        assertRandomNumberInRangeTest(() -> {
-                    run("aaaa, bbbb,shwan ,so so", "4");
-                    assertThat(output()).contains("aaaa : ---", "bbbb : ---","shwan : ---", "soso : --","최종 우승자: aaaa,bbbb,shwan");
-                },
-                MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
-                MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP,
-                STOP, STOP, MOVING_FORWARD, MOVING_FORWARD,
-                MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD
+    void 참가자_이름_공백_예외() {
+        assertSimpleTest(
+                () -> {
+                    runException("aaa,bbb, ccc,ddd");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
         );
     }
 

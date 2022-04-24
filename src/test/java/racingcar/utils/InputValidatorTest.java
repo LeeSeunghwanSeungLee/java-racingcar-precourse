@@ -105,6 +105,17 @@ class InputValidatorTest {
     }
 
     @Test
+    @DisplayName("공백이 포함된 경우 예외 테스트")
+    void 띄어쓰기포함에러() {
+        String input = "AAA,BBB, CCC";
+
+        assertThatThrownBy(() -> {
+            inputValidator.validateSplitWord(input);
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(ErrorMessage.SplitChar.toString());
+    }
+
+    @Test
     @DisplayName("숫자 값이 범위 초과로 크게 들어온 경우 테스트")
     void 숫자범위밖에러() {
         String number = "3000000000";

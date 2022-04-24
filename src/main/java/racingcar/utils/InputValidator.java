@@ -12,6 +12,7 @@ public class InputValidator {
     private static int EMPTY_LENGTH = 0;
     private static int LEAST_CANDIDATE_NUMBER = 2;
     private static int ZERO = 0;
+    private static String SPACE = " ";
 
     private InputValidator() {} // 싱글톤 구현
 
@@ -24,6 +25,11 @@ public class InputValidator {
     public void validateEmpty(String input) {
         if (input.length() <= EMPTY_LENGTH)
             throw new IllegalArgumentException(ErrorMessage.EmptyValue.toString());
+    }
+
+    public void validateSplitWord(String input) {
+        if (input.contains(SPACE))
+            throw new IllegalArgumentException(ErrorMessage.SplitChar.toString());
     }
 
 

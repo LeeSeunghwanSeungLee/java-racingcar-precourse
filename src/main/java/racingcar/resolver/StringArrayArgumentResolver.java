@@ -20,11 +20,12 @@ public class StringArrayArgumentResolver implements ArgumentResolver<String[]>{
 
     @Override
     public String[] convert(String input) {
-        return validate(input.replace(REPLACE_TARGET, REPLACEMENT));
+        return validate(input);
     }
 
     private String[] validate(String input) {
         inputValidator.validateEmpty(input);
+        inputValidator.validateSplitWord(input);
         inputValidator.validateLeastCandidate(input);
         inputValidator.validateSameName(input);
         String[] res = TypeTransformer.changeString2Array(input);
