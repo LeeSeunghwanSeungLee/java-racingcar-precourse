@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Winner {
+    private static String SPLIT = ",";
     private List<Car> roundWinner;
 
     public Winner(CarRepository carRepository) {
@@ -32,7 +33,7 @@ public class Winner {
 
     @Override
     public String toString() {
-        return String.join(",", getWinnerNames());
+        return String.join(SPLIT, getWinnerNames());
     }
 
     private List<String> getWinnerNames() {

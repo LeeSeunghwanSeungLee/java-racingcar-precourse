@@ -4,7 +4,10 @@ import racingcar.utils.InputValidator;
 import racingcar.utils.TypeTransformer;
 
 public class StringArrayArgumentResolver implements ArgumentResolver<String[]>{
+    private static String REPLACE_TARGET = " ";
+    private static String REPLACEMENT = "";
     private static StringArrayArgumentResolver argumentResolver;
+
     private InputValidator inputValidator = InputValidator.getInstance();
 
     private StringArrayArgumentResolver() {}
@@ -17,7 +20,7 @@ public class StringArrayArgumentResolver implements ArgumentResolver<String[]>{
 
     @Override
     public String[] convert(String input) {
-        return validate(input.replace(" ", ""));
+        return validate(input.replace(REPLACE_TARGET, REPLACEMENT));
     }
 
     private String[] validate(String input) {

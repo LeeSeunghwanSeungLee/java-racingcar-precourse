@@ -2,7 +2,9 @@ package racingcar.model;
 
 
 public class Car {
-    public static final int MOVE_BOUNDARY = 4;
+    private static final int MOVE_BOUNDARY = 4;
+    private static final String DISTANCE_EXPRESSION = "-";
+
     private int distance = 0;
     private String name;
 
@@ -22,7 +24,7 @@ public class Car {
     public String getDistanceByString() {
         StringBuffer distanceResult = new StringBuffer();
         for (int i = 0; i < distance; i++)
-            distanceResult.append("-");
+            distanceResult.append(DISTANCE_EXPRESSION);
         return distanceResult.toString();
     }
 
