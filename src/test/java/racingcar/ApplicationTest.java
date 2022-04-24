@@ -114,10 +114,20 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 참가자_이름_공백_예외() {
+    void 참가자_이름_분리_공백_예외() {
         assertSimpleTest(
                 () -> {
                     runException("aaa,bbb, ccc,ddd");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    void 참가자_이름_공백_예외() {
+        assertSimpleTest(
+                () -> {
+                    runException("aaa,bbb,,ddd");
                     assertThat(output()).contains(ERROR_MESSAGE);
                 }
         );
