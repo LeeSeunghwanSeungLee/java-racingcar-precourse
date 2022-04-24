@@ -13,6 +13,7 @@ public class InputValidator {
     private static int LEAST_CANDIDATE_NUMBER = 2;
     private static int ZERO = 0;
     private static String SPACE = " ";
+    private static String SPLIT_TARGET = ",";
 
     private InputValidator() {} // 싱글톤 구현
 
@@ -34,12 +35,12 @@ public class InputValidator {
 
 
     public void validateLeastCandidate(String input) {
-        if (input.split(",").length < LEAST_CANDIDATE_NUMBER)
+        if (input.split(SPLIT_TARGET).length < LEAST_CANDIDATE_NUMBER)
             throw new IllegalArgumentException(ErrorMessage.LeastCandidate.toString());
     }
 
     public void validateSameName(String input) {
-        String[] users = input.split(",");
+        String[] users = input.split(SPLIT_TARGET);
         for (int i = 0; i < users.length; i++)
             doubleCheck(i, users);
     }
